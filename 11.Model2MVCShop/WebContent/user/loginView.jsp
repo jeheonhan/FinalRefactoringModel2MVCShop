@@ -74,37 +74,14 @@
 					}
 			});
 		
-	}
-
-		//============= "로그인"  Event 연결 =============
-		/* $( function() {
-			
-			$("#userId").focus();
-			
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$("button").on("click" , function() {
-				var id=$("input:text").val();
-				var pw=$("input:password").val();
-				
-				if(id == null || id.length <1) {
-					alert('ID 를 입력하지 않으셨습니다.');
-					$("#userId").focus();
-					return;
-				}
-				
-				if(pw == null || pw.length <1) {
-					alert('패스워드를 입력하지 않으셨습니다.');
-					$("#password").focus();
-					return;
-				}
-				
-				$("form").attr("method","POST").attr("action","/user/login").attr("target","_parent").submit();
-			});
-		});	 */
+	}		
 		
 		
 		//============= 회원원가입화면이동 =============
 		 $( function() {
+			 
+			 $("#userId").focus();
+			 
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("a[href='#' ]").on("click" , function() {
 				self.location = "/user/addUser"

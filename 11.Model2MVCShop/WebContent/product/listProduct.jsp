@@ -32,6 +32,12 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+	<style>
+	     body {
+	         padding-top : 70px;
+	     }
+	</style>
+
 <!-- jQuery Lib import(CDN) -->
 <script type="text/javascript">	
 
@@ -114,15 +120,7 @@
 			});
 		
 });
-	
-
 </script>
-
-	<style>
-        body {
-            padding-top : 70px;
-        }
-   	</style>
    	
 </head>
 
@@ -198,68 +196,24 @@
 	<tr>
 		<td colspan="11" >전체 ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage} 페이지</td>
 	</tr>
-	<tr>
-		<td class="ct_list_b" width="100">No</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">상품명</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">가격</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">등록일</td>	
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">제조일</td>	
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">현재상태</td>	
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="808285" height="1"></td>
-	</tr>
 	
-	
+				
 	<c:set var="i" value="0" />
-	<c:forEach var="product" items="${list}">
-		<c:set var="i" value="${ i+1 }" />			
-			<tr class="ct_list_pop">
-				<td align="center">${i}</td>
-				<td></td>				
-				<td align="center">
-					${product.prodName}
-				<div  style="display:none">${product.prodNo}</div>					
-				</td>		
-				<td></td>
-				<td align="center">${product.price}</td>
-				<td></td>
-				<td align="center">${product.regDate}</td>
-				<td></td>
-				<td align="center">${product.manuDate}</td>
-				<td></td>
-				<td align="center">
-				
-			<c:choose>
-				<c:when test="${product.proTranCode == '000'}">
-							<span style="color:green"><strong>판매중</strong></span>
-				</c:when>
-				<c:when test="${product.proTranCode == '111'}">				
-							<span style="color:orange"><strong>구매완료</strong></span>
-				</c:when>
-				<c:when test="${product.proTranCode == '222'}">				
-							<strong>배송중</strong>
-				</c:when>
-				<c:otherwise>				
-							<span style="color:red"><strong>재고없음</strong></span>
-				</c:otherwise>				
-			</c:choose>
-				<c:if test="${param.menu eq'manage' and product.proTranCode eq '111'}">
-				--> 배송하기
-					<div  style="display:none">${product.prodNo}</div>
-				</c:if>	
-				
-				</td>	
-			</tr>
-			<tr>
-				<td colspan="11" bgcolor="D6D7D6" height="1"></td>
-			</tr>
-	</c:forEach>	
+			<c:forEach var="product" items="${list}">
+				<c:set var="i" value="${ i+1 }" />
+					<div class="column">
+  						<div class="col-sm-6 col-md-4">		
+		    			<div class="thumbnail">
+		     			 <img src="..." alt="...">
+		      				<div class="caption">
+		        		<h3>${product.prodName}</h3>
+		        			<p>...</p>
+				        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+				      </div>
+				    </div>
+			    </div>
+		    </div>					
+		</c:forEach>		
 </table>
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 			
