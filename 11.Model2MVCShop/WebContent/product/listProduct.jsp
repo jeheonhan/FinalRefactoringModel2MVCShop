@@ -35,12 +35,7 @@
 	<style>
 	     body {
 	         padding-top : 70px;
-	     }
-	     
-	     /* img{
-	     	width : 600px;
-	     	height : 400px;
-	     } */
+	     }	     
 	</style>
 
 <!-- jQuery Lib import(CDN) -->
@@ -89,10 +84,12 @@
 			
 		});
 		
-		$("a:contains('상품수정')").on("click", function(){
+		$("button[role='button']").on("click", function(){
 			
- 			var prodNo = $(this).index();
+ 			var prodNo = $(this).children().text().trim();
  			alert(prodNo);
+ 			
+ 			self.location="/product/getProduct?menu=${param.menu}&prodNo="+prodNo;
 			
 // 			var thisIndex = $("div:style[display]").index(this);
 // 			alert(thisIndex);
@@ -210,23 +207,42 @@
 									<img style="width:300px; height:250px;" src = "/images/no_detail_img.gif" alt=""/>
 								</c:otherwise>
 							</c:choose>
+							
 		      				<div class="caption">
 		        				<h3>${product.prodName}</h3>		        						        				
 		        			<p>
 		        			상품 가격 : ${product.price}<br/>
-		        			제 조 일 : ${product.manuDate}
+		        			제 조 일 : ${product.manuDate}<br/>
+		        			등 록 일 : ${product.regDate}<br/><br/>
+		        			
+		        			<c:choose>
+		        				<c:when test="${product.proTranCode == '000'}">
+		        					<h4><span style="color:green"><strong>판매중</strong></span></h4>		        				
+		        				</c:when>
+		        				<c:when test="${product.proTranCode == '111'}">
+		        					<h4><span style="color:orange"><strong>구매완료</strong></span></h4>
+		        				</c:when>
+		        				<c:when test="${product.proTranCode == '222'}">				
+									<h4><strong>배송중</strong></h4>
+								</c:when>
+								<c:otherwise>				
+									<h4><span style="color:red"><strong>재고없음</strong></span></h4>
+								</c:otherwise>
+		        			</c:choose>
 		        			</p>
-								<p>
+							<p>	
+								<button class="btn btn-primary" role="button">
 									<c:choose>
 										<c:when test="${param.menu eq 'manage'}">
-											<a class="btn btn-primary" role="button">상품수정</a> 
-							        	</c:when>
-							        	<c:otherwise>
-							        		<a class="btn btn-primary" role="button">상품상세정보</a>							        	 -->
- 							        	</c:otherwise>
-							        </c:choose>
-							        	<div style="display:none">${product.prodNo}</div>
-						        </p>
+											상품수정
+										</c:when>
+										<c:otherwise>
+											상품상세정보
+										</c:otherwise>
+									</c:choose>																
+						        	<a style="display:none">${product.prodNo}</a>
+						        </button>						        
+					        </p>						        
 				      </div>
 				    </div>
 			    </div>
