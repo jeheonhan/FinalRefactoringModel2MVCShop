@@ -71,7 +71,7 @@
 	                         <span class="caret"></span>
 	                     </a>
 	                     <ul class="dropdown-menu">
-	                         <li><a href="#">상 품 검 색</a></li>
+	                         <li><a>상 품 검 색</a></li>
 	                         
 	                         <c:if test="${sessionScope.user.role == 'user'}">
 	                           <li><a href="#">구매이력조회</a></li>
@@ -134,6 +134,11 @@
 		
 		$("a:contains('판매상품관리')").on("click", function(){
 			$(self.location).attr("href", "/product/listProduct?menu=manage");
+		});
+		
+		$("a:contains('상 품 검 색')").on("click", function(){
+			
+			$(self.location).attr("href", "/product/listProduct?menu=search");
 		});
 		
 		

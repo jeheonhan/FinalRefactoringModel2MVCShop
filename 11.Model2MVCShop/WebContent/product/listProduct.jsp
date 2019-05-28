@@ -2,7 +2,7 @@
 <%@ page import="java.net.URLEncoder" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<!DOCTYPE html>
 <html>
 <head lang="ko">
 
@@ -30,12 +30,17 @@
 
 <title>상품 목록조회</title>
 
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 	<style>
 	     body {
 	         padding-top : 70px;
 	     }
+	     
+	     /* img{
+	     	width : 600px;
+	     	height : 400px;
+	     } */
 	</style>
 
 <!-- jQuery Lib import(CDN) -->
@@ -81,6 +86,16 @@
 			alert(thisProdNo);			
 			self.location ="/purchase/updateTranCode?menu=${param.menu}&prodNo="+thisProdNo+"&currentPage=${param.currentPage}";
 			
+			
+		});
+		
+		$("a:contains('상품수정')").on("click", function(){
+			
+ 			var prodNo = $(this).index();
+ 			alert(prodNo);
+			
+// 			var thisIndex = $("div:style[display]").index(this);
+// 			alert(thisIndex);
 			
 		});
 		
@@ -133,7 +148,14 @@
 <div class="container">
 
 		<div class="page-header text-info">
-	       <h3>판매상품관리</h3>
+		<c:choose>
+			<c:when test="${param.menu eq 'manage'}">
+	       		<h3>판매상품관리</h3>
+	       	</c:when>
+	       	<c:otherwise>
+	       		<h3>상 품 조 회</h3>
+	       	</c:otherwise>
+	    </c:choose>
 	    </div>
 
 <div class="row">
@@ -171,7 +193,7 @@
 	    	
 		</div>
 
-
+<br/><br/><br/>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">	
 				
 	<c:set var="i" value="0" />
@@ -181,17 +203,30 @@
   						<div class="col-sm-6 col-md-4">		
 		    			<div class="thumbnail">
 			     			<c:choose>
-								<c:when test="${!(pvo.fileName == null || pvo.fileName == '')}">
-									<img src = "/images/uploadFiles/${pvo.fileName}" alt=""/>
+								<c:when test="${!(product.fileName == null || product.fileName == '')}">
+									<img style="width:300px; height:250px;" src = "/images/uploadFiles/${product.fileName}" alt=""/>
 								</c:when>
 								<c:otherwise>
-									<img src = "/images/no_detail_img.gif" alt=""/>
+									<img style="width:300px; height:250px;" src = "/images/no_detail_img.gif" alt=""/>
 								</c:otherwise>
 							</c:choose>
 		      				<div class="caption">
-		        		<h3>${product.prodName}</h3>
-		        			<p>...</p>
-				        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+		        				<h3>${product.prodName}</h3>		        						        				
+		        			<p>
+		        			상품 가격 : ${product.price}<br/>
+		        			제 조 일 : ${product.manuDate}
+		        			</p>
+								<p>
+									<c:choose>
+										<c:when test="${param.menu eq 'manage'}">
+											<a class="btn btn-primary" role="button">상품수정</a> 
+							        	</c:when>
+							        	<c:otherwise>
+							        		<a class="btn btn-primary" role="button">상품상세정보</a>							        	 -->
+ 							        	</c:otherwise>
+							        </c:choose>
+							        	<div style="display:none">${product.prodNo}</div>
+						        </p>
 				      </div>
 				    </div>
 			    </div>
