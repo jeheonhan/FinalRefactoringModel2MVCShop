@@ -75,7 +75,7 @@ public class PurchaseController {
 		purchaseProd.setProdNo(prodNo);
 		
 		purchase.setBuyer(buyer);
-		purchase.setPurchaseProd(purchaseProd);
+		purchase.setPurchaseProd(purchaseProd);		
 		
 		purchaseService.addPurchase(purchase);
 				

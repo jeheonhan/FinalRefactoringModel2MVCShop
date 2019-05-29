@@ -51,6 +51,8 @@
 		var phone = $("input:text[name='receiverPhone']").val();
 		var addr = $("input:text[name='divyAddr']").val();
 		var date = $("input:text[name='divyDate']").val();
+		var buyerId = $("input:hidden[name='buyerId']").val();
+		var prodNo = $("input:hidden[name='prodNo']").val();
 	
 		if(name == null || name.length<1){
 			alert("이름을 입력해 주세요.");
@@ -69,17 +71,19 @@
 			return;
 		}
 		
-		$("form").attr("method", "POST").attr("action", "/purchase/addPurchase").submit();
+		$("form").attr("method", "POST").attr("action", "/purchase/addPurchase?buyerId="+buyerId+"&prodNo="+prodNo).submit();
 	}
 	
 	$(function(){
 		
-		$(".ct_btn01:contains('구매')").on("click", function(){
+		$("button:contains('구매')").on("click", function(){
+// 					alert($("input:hidden[name='buyerId']").val());
+// 					alert($("input:hidden[name='prodNo']").val());
 					fncAddPurchase();
 		});
 		
-		$(".ct_btn01:contains('취소')").on("click", function(){
-			$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=search");
+		$("button:contains('취소')").on("click", function(){
+			self.location="/product/listProduct?menu=${param.menu}";
 		});
 		
 		$("input:text[name='divyDate']").datepicker({dateFormat:'yy/mm/dd'});
@@ -102,8 +106,6 @@
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal">
 		
-		<input type="hidden" name="prodNo" value="${pvo.prodNo}" />		
-		
 		<div class="container">		
 	    
 	    <div class="row">
@@ -125,6 +127,7 @@
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>상품번호</strong></div>
 			<div class="col-xs-8 col-md-4">${pvo.prodNo}</div>
+			<input type="hidden" name="prodNo" value="${pvo.prodNo}" />
 		</div>
 		
 		<hr/>
@@ -165,18 +168,62 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>구매자아이디</strong></div>
-			<input class="col-xs-8 col-md-4" name="buyerId" value="${sessionScope.user.userId}"/>
+			<div class="col-xs-8 col-md-4" >${sessionScope.user.userId}</div>
+			<input type="hidden" name="buyerId" value="${sessionScope.user.userId}"/>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>구매방법</strong></div>
-			<select class="col-xs-8 col-md-4" name="paymentOption">
+	  		<div class="col-xs-4 col-md-2 "><strong>구매방법*</strong></div>
+			<select class="col-xs-8 col-md-4" name="paymentOption" style="width: 140px; height: 19px" >
 				<option value="100">현금구매</option>
 				<option value="101">신용구매</option>
 			</select>
 			
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구매자이름*</strong></div>
+			<input type="text" name="receiverName" value="${sessionScope.user.userName}"
+					class="col-xs-4 col-md-2 "
+					style="width: 140px; height: 19px"/>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구매자연락처*</strong></div>
+			<input type="text" name="receiverPhone" value="${sessionScope.user.phone}"
+					class="col-xs-4 col-md-2 "
+					style="width: 140px; height: 19px"/>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구매자주소*</strong></div>
+			<input type="text" name="divyAddr" value="${sessionScope.user.addr}"
+					class="col-xs-4 col-md-2 "
+					style="width: 140px; height: 19px"/>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>구매요청사항</strong></div>
+			<input type="text" name="divyRequest" class="col-xs-4 col-md-2 "
+					style="width: 200px; height: 19px"/>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>배송희망일자*</strong></div>
+			<input type="text" name="divyDate" class="col-xs-4 col-md-2 " placeholder="클릭하여 날짜선택"
+					style="width: 150px; height: 19px"/>
 		</div>
 		
 		<hr/>
@@ -186,8 +233,8 @@
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary"  >등록</button>
-			  <a class="btn btn-primary btn" href="#" role="button">취소</a>
+		      <button type="button" class="btn btn-primary"  >구매</button>
+			  <button type="button" class="btn btn-primary">취소</button>
 		    </div>
 		  </div>
 		</form>
