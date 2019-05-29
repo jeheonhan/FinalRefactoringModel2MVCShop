@@ -87,14 +87,15 @@
 		$("button[role='button']").on("click", function(){
 			
  			var prodNo = $(this).children().text().trim();
- 			alert(prodNo);
+ 			//alert(prodNo);
  			
  			self.location="/product/getProduct?menu=${param.menu}&prodNo="+prodNo;
 			
-// 			var thisIndex = $("div:style[display]").index(this);
-// 			alert(thisIndex);
+ 			//var thisIndex = $("div:style[display]").index(this);
+ 			//alert(thisIndex);
 			
 		});
+			
 		
 		$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
 		
@@ -240,7 +241,7 @@
 											상품상세정보
 										</c:otherwise>
 									</c:choose>																
-						        	<a style="display:none">${product.prodNo}</a>
+						        	<div style="display:none">${product.prodNo}</div>
 						        </button>						        
 					        </p>						        
 				      </div>

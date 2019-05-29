@@ -36,21 +36,18 @@
 
 	$(function(){
 		
-		$(".ct_btn01:contains('구매')").on("click", function(){			
-			$(window.parent.frames["rightFrame"].document.location).attr("href","/purchase/addPurchaseView?prodNo=${param.prodNo}");			
+		$("button:contains('구입하기')").on("click", function(){
+			var prodNo = $(this).children().text().trim();
+			//alert(prodNo);
+			self.location="/purchase/addPurchaseView?prodNo="+prodNo+"&buyerId=${sessionScope.user.userId}";			
 		});
 		
-		$(".ct_btn01:contains('이전')").on("click", function(){			
-			$(window.parent.frames["rightFrame"].document.location).attr("href","javascript:history.go(-1)");			
+		$("button:contains('확인')").on("click", function(){			
+			self.location="/product/listProduct?menu=${param.menu}";			
 		});
 		
-		$($(".ct_btn01:contains('확인')")[0]).on("click", function(){			
-			$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=${param.menu}&currentPage=${param.currentPage}");			
-		});
+			
 		
-		$($(".ct_btn01:contains('확인')")[1]).on("click", function(){			
-			$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=search&currentPage=${param.currentPage}");			
-		});
 		
 	});
 
@@ -131,7 +128,14 @@
 		
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-primary">회원정보수정</button>
+	  				<c:if test="${sessionScope.user.role == 'user'}">
+	  					<button type="button" class="btn btn-primary">
+	  						구입하기
+	  						<div style="display:none">${pvo.prodNo}</div>
+	  					</button>
+	  				</c:if>
+	  						&nbsp;&nbsp;
+	  					<button type="button" class="btn btn-primary">확인</button>	  				
 	  		</div>
 		</div>
 		

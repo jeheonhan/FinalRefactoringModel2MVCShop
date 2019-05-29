@@ -56,7 +56,7 @@ public class ProductController {
 		System.out.println("Product :: " + product);
 		System.out.println("이미지 파일 크기 : "+imgFile.getSize());		
 		
-		String temDir = "C:\\Users\\USER\\git\\09MVCModel2-jQuery-\\09.Model2MVCShop(jQuery)\\WebContent\\images\\uploadFiles"; 
+		String temDir = "C:\\Users\\USER\\git\\FinalRefactoringModel2MVCShop\\11.Model2MVCShop\\WebContent\\images\\uploadFiles"; 
 				
 		
 		if(!imgFile.isEmpty()) {
