@@ -58,7 +58,7 @@ public class PurchaseController {
 		model.addAttribute("pvo", product);
 		
 		
-		return "forward:/purchase/addPurchaseView.jsp";
+		return "forward:/purchase/addPurchaseView.jsp?prodNo="+prodNo;
 	}
 	
 	@RequestMapping(value="addPurchase", method=RequestMethod.POST)
@@ -69,8 +69,10 @@ public class PurchaseController {
 		System.out.println("/addPurchase");
 		
 		User buyer = new User();
+		System.out.println("buyerId »Æ¿Œ : "+buyerId);
 		buyer.setUserId(buyerId);
-		
+				
+		System.out.println("prodNo : "+prodNo);
 		Product purchaseProd = new Product();
 		purchaseProd.setProdNo(prodNo);
 		

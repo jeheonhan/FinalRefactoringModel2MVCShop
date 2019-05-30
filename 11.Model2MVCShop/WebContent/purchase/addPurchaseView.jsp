@@ -51,8 +51,6 @@
 		var phone = $("input:text[name='receiverPhone']").val();
 		var addr = $("input:text[name='divyAddr']").val();
 		var date = $("input:text[name='divyDate']").val();
-		var buyerId = $("input:hidden[name='buyerId']").val();
-		var prodNo = $("input:hidden[name='prodNo']").val();
 	
 		if(name == null || name.length<1){
 			alert("이름을 입력해 주세요.");
@@ -71,15 +69,17 @@
 			return;
 		}
 		
-		$("form").attr("method", "POST").attr("action", "/purchase/addPurchase?buyerId="+buyerId+"&prodNo="+prodNo).submit();
+		$("form").attr("method", "POST").attr("action", "/purchase/addPurchase").submit();
 	}
 	
 	$(function(){
 		
 		$("button:contains('구매')").on("click", function(){
 // 					alert($("input:hidden[name='buyerId']").val());
-// 					alert($("input:hidden[name='prodNo']").val());
-					fncAddPurchase();
+
+// 				var prodNo = $("div:contains('상품번호')").text();
+//  					alert(prodNo);
+ 					fncAddPurchase();
 		});
 		
 		$("button:contains('취소')").on("click", function(){
@@ -104,8 +104,8 @@
 	    </div>
 	    
 	    <!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal">
-		
+		<form class="form-horizontal">		
+
 		<div class="container">		
 	    
 	    <div class="row">
@@ -127,7 +127,7 @@
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>상품번호</strong></div>
 			<div class="col-xs-8 col-md-4">${pvo.prodNo}</div>
-			<input type="hidden" name="prodNo" value="${pvo.prodNo}" />
+			<input type="hidden" name="prodNo" value="${pvo.prodNo}"/>	
 		</div>
 		
 		<hr/>

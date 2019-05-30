@@ -39,7 +39,7 @@
 		$("button:contains('구입하기')").on("click", function(){
 			var prodNo = $(this).children().text().trim();
 			//alert(prodNo);
-			self.location="/purchase/addPurchaseView?prodNo="+prodNo+"&buyerId=${sessionScope.user.userId}";			
+			self.location="/purchase/addPurchaseView?prodNo="+prodNo;			
 		});
 		
 		$("button:contains('확인')").on("click", function(){			
