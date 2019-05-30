@@ -49,7 +49,7 @@
 	$(function(){
 		
 		$("button:contains('확인')").on("click", function(){			
-			self.location="/product/listProduct?menu=${param.menu}";			
+			self.location="/product/listProduct?menu=search";			
 		});
 		
 			
@@ -87,7 +87,7 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>상 품 명</strong></div>
-			<div class="col-xs-8 col-md-4">${pvo.prodName}</div>
+			<div class="col-xs-8 col-md-4">${param.prodName}</div>
 		</div>
 		
 		<hr/>

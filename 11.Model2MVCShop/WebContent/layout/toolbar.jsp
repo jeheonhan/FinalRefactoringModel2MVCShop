@@ -74,7 +74,11 @@
 	                         <li><a>상 품 검 색</a></li>
 	                         
 	                         <c:if test="${sessionScope.user.role == 'user'}">
-	                           <li><a href="#">구매이력조회</a></li>
+	                           <li><a href="#">
+	                           			구매이력조회
+	                           			<div style="display:none ">${sessionScope.user.userId}</div>
+	                           		</a>
+	                           </li>
 	                         </c:if>
 	                         
 	                         <li><a href="#">최근본상품</a></li>
@@ -139,6 +143,14 @@
 		$("a:contains('상 품 검 색')").on("click", function(){
 			
 			$(self.location).attr("href", "/product/listProduct?menu=search");
+		});
+		
+		$("a:contains('구매이력조회')").on("click", function(){		
+			
+			var userId = $("a:contains('구매이력조회') div").text().trim();
+			//alert(userId);
+				
+			$(self.location).attr("href", "/purchase/listPurchase?userId="+userId);
 		});
 		
 		

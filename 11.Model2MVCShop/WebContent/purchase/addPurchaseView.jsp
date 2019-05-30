@@ -135,6 +135,7 @@
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>상 품 명</strong></div>
 			<div class="col-xs-8 col-md-4">${pvo.prodName}</div>
+			<input type="hidden" name="prodName" value="${pvo.prodName}"/>
 		</div>
 		
 		<hr/>
@@ -176,7 +177,7 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>구매방법*</strong></div>
-			<select class="col-xs-8 col-md-4" name="paymentOption" style="width: 140px; height: 19px" >
+			<select class="col-xs-8 col-md-4" name="paymentOption" style="width: 140px; height: 25px" >
 				<option value="100">현금구매</option>
 				<option value="101">신용구매</option>
 			</select>
@@ -189,7 +190,7 @@
 	  		<div class="col-xs-4 col-md-2 "><strong>구매자이름*</strong></div>
 			<input type="text" name="receiverName" value="${sessionScope.user.userName}"
 					class="col-xs-4 col-md-2 "
-					style="width: 140px; height: 19px"/>
+					style="width: 140px; height: 25px"/>
 		</div>
 		
 		<hr/>
@@ -198,7 +199,7 @@
 	  		<div class="col-xs-4 col-md-2 "><strong>구매자연락처*</strong></div>
 			<input type="text" name="receiverPhone" value="${sessionScope.user.phone}"
 					class="col-xs-4 col-md-2 "
-					style="width: 140px; height: 19px"/>
+					style="width: 140px; height: 25px"/>
 		</div>
 		
 		<hr/>
@@ -207,7 +208,7 @@
 	  		<div class="col-xs-4 col-md-2 "><strong>구매자주소*</strong></div>
 			<input type="text" name="divyAddr" value="${sessionScope.user.addr}"
 					class="col-xs-4 col-md-2 "
-					style="width: 140px; height: 19px"/>
+					style="width: 140px; height: 25px"/>
 		</div>
 		
 		<hr/>
@@ -215,7 +216,7 @@
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>구매요청사항</strong></div>
 			<input type="text" name="divyRequest" class="col-xs-4 col-md-2 "
-					style="width: 200px; height: 19px"/>
+					style="width: 200px; height: 25px"/>
 		</div>
 		
 		<hr/>
@@ -223,7 +224,7 @@
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>배송희망일자*</strong></div>
 			<input type="text" name="divyDate" class="col-xs-4 col-md-2 " placeholder="클릭하여 날짜선택"
-					style="width: 150px; height: 19px"/>
+					style="width: 150px; height: 25px"/>
 		</div>
 		
 		<hr/>

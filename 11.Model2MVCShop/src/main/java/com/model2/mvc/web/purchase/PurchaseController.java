@@ -64,7 +64,8 @@ public class PurchaseController {
 	@RequestMapping(value="addPurchase", method=RequestMethod.POST)
 	public String addPurchase(@ModelAttribute("purchase") Purchase purchase,
 								@RequestParam("buyerId") String buyerId,
-								@RequestParam("prodNo") int prodNo) throws Exception {
+								@RequestParam("prodNo") int prodNo,
+								@RequestParam("prodName") String prodName) throws Exception {
 		
 		System.out.println("/addPurchase");
 		
@@ -81,7 +82,7 @@ public class PurchaseController {
 		
 		purchaseService.addPurchase(purchase);
 				
-		return "forward:/purchase/addPurchase.jsp";
+		return "forward:/purchase/addPurchase.jsp?prodName="+prodName;
 	}
 	
 	@RequestMapping(value="getPurchase", method=RequestMethod.GET)
