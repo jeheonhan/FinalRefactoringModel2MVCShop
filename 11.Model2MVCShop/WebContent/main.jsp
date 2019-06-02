@@ -45,25 +45,52 @@
    	<!-- ToolBar End /////////////////////////////////////-->
 
 	<!--  아래의 내용은 http://getbootstrap.com/getting-started/  참조 -->	
-   	<div class="container ">
       <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>Model2MVCShop </h1>
-        <p>J2SE , DBMS ,JDBC , Servlet & JSP, Java Framework , HTML5 , UI Framework 학습 후 Mini-Project 진행</p>
-     </div>
-    </div>
-
-	<!-- 참조 : http://getbootstrap.com/css/   : container part..... -->
-	<div class="container">
-        <h3>나폴레옹은 이렇게 말했다.</h3>
-        <p>"오늘 나의 불행은 언젠가 내가 잘못 보낸 시간의 보복이다."</p>
-  	 	<h3>"... 장벽은 절실하게 원하지 않는 사람들을 걸러내려고 존재합니다. 장벽은. 당신이 아니라 '다른' 사람들을 멈추게 하려고 거기 있는 것이지요."</h3>
-         <h3>혜광스님</h3>
-         <p>행복한 삶의 비결은.</p>
-         <p>좋아하는 일을 하는 것이 아리라,</p>
-         <p>지금 하는 일을 좋아하는 것입니다.</p>
-  	 </div>
-
+      <div class="container ">
+      	<h1>Model2 MVC Shop</h1>
+      </div>
+      <div class="container ">
+	      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+		  <!-- Indicators -->
+		  <ol class="carousel-indicators">
+		    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+		    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+		    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+		  </ol>
+		  
+		  <!-- Wrapper for slides -->
+		  <div class="carousel-inner" role="listbox">
+		  	<div align="center" class="item active">
+		      <img style="width:830px; height:400px;" src="/images/mvcshop.jpg">		    
+		     	 <div class="carousel-caption"></div>
+		    </div>
+		  <c:forEach var="product" items="${list}">
+		    <div align="center" class="item">
+		    <c:choose>
+			    <c:when test="${!(product.fileName == null || product.fileName == '')}">
+			      <img style="width:400px; height:400px;" src="/images/uploadFiles/${product.fileName}">
+			    </c:when>
+			    <c:otherwise>
+			    	<img style="width:400px; height:400px;" src="/images/no_detail_img">
+			    </c:otherwise>	
+		    </c:choose>	    
+		     	 <div class="carousel-caption"></div>
+		    </div>
+		    </c:forEach>		    
+		  </div>
+		
+		  <!-- Controls -->
+		  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+		    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		    <span class="sr-only">Previous</span>
+		  </a>
+		  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+		    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		    <span class="sr-only">Next</span>
+		  </a>
+		</div>
+	</div>
+	
 </body>
 
 </html>

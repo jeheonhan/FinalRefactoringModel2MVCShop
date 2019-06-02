@@ -44,10 +44,7 @@
 		
 		$("button:contains('확인')").on("click", function(){			
 			self.location="/product/listProduct?menu=${param.menu}";			
-		});
-		
-			
-		
+		});		
 		
 	});
 
@@ -128,7 +125,7 @@
 		
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
-	  				<c:if test="${sessionScope.user.role == 'user'}">
+	  				<c:if test="${sessionScope.user.role == 'user' and pvo.proTranCode == '000'}">
 	  					<button type="button" class="btn btn-primary">
 	  						구입하기
 	  						<div style="display:none">${pvo.prodNo}</div>

@@ -28,9 +28,10 @@
 	 
 	 <select 	id="getProduct"	parameterType="string"	resultMap="productSelectMap">
 		SELECT
-		prod_no , prod_name , prod_detail , manufacture_day ,  price ,  image_file , reg_date 		
-		FROM product
-		WHERE prod_no = #{value}
+		product.*, transaction.tran_status_code 		
+		FROM product, transaction
+		WHERE product.prod_no = transaction.prod_no(+)
+		AND product.prod_no = #{value}
 	 </select>
 	 
 	 <update id="updateProduct" parameterType="product">

@@ -35,7 +35,11 @@
 	<style>
 	     body {
 	         padding-top : 70px;
-	     }	     
+	     }
+	     
+	     table{
+	     	text-align : center;
+	     }     
 	</style>
 
 <!-- jQuery Lib import(CDN) -->
@@ -73,13 +77,11 @@
 			self.location ="/product/getProduct?menu=${param.menu}&prodNo="+prodNo+"&currentPage=${param.currentPage}";
 		});
 		
-		$(".ct_list_pop td:nth-child(11):contains('배송하기')").on("click", function(){
-// 			self.location ="/product/getProduct?menu=${param.menu}&prodNo="+$("#prodNo").text().trim();
-			var thisIndex = $(".ct_list_pop td:nth-child(11):contains('배송하기')").index(this);
-			//alert(thisIndex);
-			var thisProdNo = $($(".ct_list_pop td:nth-child(11) div")[thisIndex]).text().trim();
-			alert(thisProdNo);			
-			self.location ="/purchase/updateTranCode?menu=${param.menu}&prodNo="+thisProdNo+"&currentPage=${param.currentPage}";
+		$("button[role='update']").on("click", function(){
+			
+			var prodNo = $(this).children().text().trim();
+			//alert(prodNo);			
+			self.location ="/purchase/updateTranCode?menu=${param.menu}&prodNo="+prodNo+"&currentPage=${param.currentPage}";
 			
 			
 		});
@@ -192,45 +194,62 @@
 		</div>
 
 <br/><br/><br/>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">	
 				
 	<c:set var="i" value="0" />
 			<c:forEach var="product" items="${list}">
 				<c:set var="i" value="${ i+1 }" />
 					<div class="column">
   						<div class="col-sm-6 col-md-4">		
-		    			<div class="thumbnail">
+		    			<div class="thumbnail" >
 			     			<c:choose>
 								<c:when test="${!(product.fileName == null || product.fileName == '')}">
-									<img style="width:300px; height:250px;" src = "/images/uploadFiles/${product.fileName}" alt=""/>
+									<img style="width:250px; height:200px;" src = "/images/uploadFiles/${product.fileName}" alt=""/>
 								</c:when>
 								<c:otherwise>
-									<img style="width:300px; height:250px;" src = "/images/no_detail_img.gif" alt=""/>
+									<img style="width:250px; height:200px;" src = "/images/no_detail_img.gif" alt=""/>
 								</c:otherwise>
 							</c:choose>
 							
-		      				<div class="caption">
-		        				<h3>${product.prodName}</h3>		        						        				
-		        			<p>
-		        			상품 가격 : ${product.price}<br/>
-		        			제 조 일 : ${product.manuDate}<br/>
-		        			등 록 일 : ${product.regDate}<br/><br/>
+		      				<div class="caption" align="center">		      					
+		      						<c:choose>
+					        				<c:when test="${product.proTranCode == '000'}">
+					        					<h5><span style="color:green"><strong>(판매중)</strong></span></h5>		        				
+					        				</c:when>
+					        				<c:when test="${product.proTranCode == '111'}">
+					        					<h5><span style="color:orange"><strong>(구매완료)</strong></span></h5>
+					        				</c:when>
+					        				<c:when test="${product.proTranCode == '222'}">				
+												<h5><strong>(배송중)</strong></h5>
+											</c:when>
+											<c:otherwise>				
+												<h5><span style="color:red"><strong>(재고없음)</strong></span></h5>
+											</c:otherwise>
+			        					</c:choose>
+		      					<p></p>		      						       				
+		      							
+		      							<table>
+		      								<tr>
+		      									<td>상 품 명</td>
+		      									<td>&ensp;:&ensp;</td>
+		      									<td>&emsp;${product.prodName}</td>
+		      								</tr>
+		      								<tr>
+		      									<td>가&emsp;&emsp;격</td>
+		      									<td>&ensp;:&ensp;</td>
+		      									<td>&emsp;${product.price}</td>
+		      								</tr>
+		      								<tr>
+		      									<td>제 조 일 자</td>
+		      									<td>:</td>
+		      									<td>&emsp;${product.manuDate}</td>
+		      								</tr>
+		      								<tr>
+		      									<td>등 록 일 자</td>
+		      									<td>:</td>
+		      									<td>&emsp;${product.regDate}</td>
+		      								</tr>
+		      							</table><br/>
 		        			
-		        			<c:choose>
-		        				<c:when test="${product.proTranCode == '000'}">
-		        					<h4><span style="color:green"><strong>판매중</strong></span></h4>		        				
-		        				</c:when>
-		        				<c:when test="${product.proTranCode == '111'}">
-		        					<h4><span style="color:orange"><strong>구매완료</strong></span></h4>
-		        				</c:when>
-		        				<c:when test="${product.proTranCode == '222'}">				
-									<h4><strong>배송중</strong></h4>
-								</c:when>
-								<c:otherwise>				
-									<h4><span style="color:red"><strong>재고없음</strong></span></h4>
-								</c:otherwise>
-		        			</c:choose>
-		        			</p>
 							<p>	
 								<button class="btn btn-primary" role="button">
 									<c:choose>
@@ -242,14 +261,20 @@
 										</c:otherwise>
 									</c:choose>																
 						        	<div style="display:none">${product.prodNo}</div>
-						        </button>						        
+						        </button>
+						        &emsp;&emsp;
+						        <c:if test="${product.proTranCode == '111' and param.menu == 'manage'}">
+							        <button class="btn btn-primary" role="update">
+							        		배송하기
+							        	<div style="display:none">${product.prodNo}</div>
+							        </button>
+						        </c:if>						        
 					        </p>						        
 				      </div>
 				    </div>
 			    </div>
 		    </div>					
 		</c:forEach>		
-</table>
 </div>
 <jsp:include page="../common/pageNavigator_new.jsp"/>
 </body>

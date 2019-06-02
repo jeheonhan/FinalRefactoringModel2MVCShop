@@ -84,7 +84,7 @@
 		});
 		
 		$("a:contains('취소')").on("click", function(){			
-			resetData();
+			history.go(-1);
 		});
 		
 		$("#calendar").datepicker({dateFormat:'yy/mm/dd'});
@@ -113,21 +113,21 @@
 			<input type="hidden" name="prodNo" value="${pvo.prodNo}"/>
 			
 		  <div class="form-group">
-		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">상 품 명</label>
+		    <label for="prodname" class="col-sm-offset-1 col-sm-3 control-label">상 품 명</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" name="prodName" value="" placeholder="${pvo.prodName}" >
 		    </div>
 		  </div>
 		
 		  <div class="form-group">
-		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">상품상세정보</label>
+		    <label for="Detail" class="col-sm-offset-1 col-sm-3 control-label">상품상세정보</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" name="prodDetail" placeholder="${pvo.prodDetail}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">가 격</label>
+		    <label for="price" class="col-sm-offset-1 col-sm-3 control-label">가 격</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" name="price" placeholder="${pvo.price}">
 		    </div>

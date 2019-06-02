@@ -1,5 +1,7 @@
 package com.model2.mvc.web.purchase;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +104,7 @@ public class PurchaseController {
 								@RequestParam("userId") String buyerId,
 								Model model) throws Exception {
 		
-		if(search.getCurrentPage() ==0 ){
+		if(search.getCurrentPage() == 0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
@@ -183,6 +185,45 @@ public class PurchaseController {
 			return "redirect:/purchase/listPurchase?currentPage="+currentPage+"&userId="+userId;
 		}
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="main", method=RequestMethod.GET)
+	public String main(Model model) throws Exception {
+		
+		Search search = new Search();
+		search.setCurrentPage(1);
+		
+		Map<String, Object> map = productService.getProductList(search);
+		int pageSize = (Integer)map.get("totalCount");
+		
+		System.out.println("pageSize : "+pageSize);
+		
+		search.setPageSize(pageSize);
+				
+		map = productService.getProductList(search);
+		
+		System.out.println("map 확인 : "+map);
+		System.out.println();
+		System.out.println("map list 확인 : "+map.get("list"));
+		System.out.println();
+		
+		List<Product> productList = (List<Product>) map.get("list");
+		
+		model.addAttribute("saleList", productList);
+		
+		
+		for(int i=0; i<productList.size(); i++) {
+			System.out.println(productList.get(i).getFileName());
+			if(productList.get(i).getFileName() == null) {
+				System.out.println(productList.get(i).getFileName());
+				productList.remove(i);
+			}
+		}		
+		
+		model.addAttribute("list", productList);
+		
+		return "forward:/main.jsp";
 	}
 	
 	

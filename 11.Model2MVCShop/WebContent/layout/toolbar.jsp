@@ -10,7 +10,7 @@
 	
 	<div class="container">
 	       
-		<a class="navbar-brand" >Model2 MVC Shop</a>
+		<a class="navbar-brand" >Main</a>
 		
 		<!-- toolBar Button Start //////////////////////// -->
 		<div class="navbar-header">
@@ -74,14 +74,14 @@
 	                         <li><a>상 품 검 색</a></li>
 	                         
 	                         <c:if test="${sessionScope.user.role == 'user'}">
-	                           <li><a href="#">
+	                           <li><a>
 	                           			구매이력조회
 	                           			<div style="display:none ">${sessionScope.user.userId}</div>
 	                           		</a>
 	                           </li>
 	                         </c:if>
 	                         
-	                         <li><a href="#">최근본상품</a></li>
+	                         <li><a>최근본상품</a></li>
 	                         <li class="divider"></li>
 	                         <li><a href="#">etc..</a></li>
 	                     </ul>
@@ -103,6 +103,10 @@
    	
    	
    	<script type="text/javascript">
+   	
+   	function history(){
+   		popWin = window.open("/history.jsp","popWin","left=300, top=200, width=300, height=200, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+   	}
 	
 		//============= logout Event  처리 =============	
 		 $(function() {
@@ -122,7 +126,7 @@
 			}); 
 		 });
 		
-		$("a:contains('Model2 MVC Shop')").on("click", function(){
+		$("a:contains('Main')").on("click", function(){
 			$(self.location).attr("href", "/index.jsp");
 		});		
 		
@@ -143,6 +147,11 @@
 		$("a:contains('상 품 검 색')").on("click", function(){
 			
 			$(self.location).attr("href", "/product/listProduct?menu=search");
+		});
+		
+		$("a:contains('최근본상품')").on("click", function(){
+			
+			$(self.location).attr("href", "javascript:history()");
 		});
 		
 		$("a:contains('구매이력조회')").on("click", function(){		
