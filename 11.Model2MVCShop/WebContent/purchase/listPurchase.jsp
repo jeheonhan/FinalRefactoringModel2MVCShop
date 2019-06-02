@@ -2,15 +2,47 @@
     pageEncoding="EUC-KR"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
 
+<!DOCTYPE html>   
 
 <html>
-<head>
+<head lang="ko">
 <title>구매 목록조회</title>
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
+<meta charset="EUC-KR">
+	
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	
+	<!--   jQuery , Bootstrap CDN  -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+<link href="/css/animate.min.css" rel="stylesheet">
+<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+   
+    <!-- Bootstrap Dropdown Hover JS -->
+<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
+<title>상품 목록조회</title>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	<style>
+	     body {
+	         padding-top : 70px;
+	     }
+	     
+	     table{
+	     	text-align : center;
+	     }	     
+	</style>
 
 <script type="text/javascript">
 
@@ -44,14 +76,20 @@
 			self.location="/user/getUser?userId="+userId;			
 		});
 		
-		$("td:contains('수령하기')").on("click", function(){		
+		$("button[role='update']").on("click", function(){
 			
-			var thisIndex = $("td:contains('수령하기')").index($(this));
+			var tranNo = $(this).children().text().trim();
+			//alert(tranNo);
+			self.location = "/purchase/updateTranCode?userId=${param.buyerId}&tranNo="+tranNo+"&currentPage=${param.currentPage}";
+		});
+		
+		$("button:contains('구매상세정보')").on("click", function(){		
+			
+			var thisIndex = $("button:contains('구매상세정보')").index(this);
 			//alert(thisIndex);
-			var thisTranNo = $($("td:contains('수령하기') div")[thisIndex]).text().trim();
-			//alert("this tranNo : "+thisTranNo);
-			
-			self.location = "/purchase/updateTranCode?userId=${param.buyerId}&tranNo="+thisTranNo+"&currentPage=${param.currentPage}";
+			var thisTranNo = $($("button:contains('구매상세정보') div")[thisIndex]).text().trim();
+			//alert("this tranNo : "+thisTranNo);			
+			self.location = "/purchase/getPurchase?tranNo="+thisTranNo;
 		});
 		
 	});
@@ -62,103 +100,102 @@
 
 <body bgcolor="#ffffff" text="#000000">
 
-<div style="width: 98%; margin-left: 10px;">
+<jsp:include page="/layout/toolbar.jsp" />
 
-<form name="detailForm">
+<div class="container">
 
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
-	<tr>
-		<td width="15" height="37"><img src="/images/ct_ttl_img01.gif"width="15" height="37"></td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="93%" class="ct_ttl01">구매 목록조회</td>
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37"><img src="/images/ct_ttl_img03.gif"	width="12" height="37"></td>
-	</tr>
-</table>
+		<div class="page-header text-info">
+			<h3><strong>${sessionScope.user.userId}</strong>님의 구매목록</h3>
+		</div>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 10px;">
-	<tr>
-		<td colspan="11">전체 ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage} 페이지</td>
-	</tr>
-	<tr>
-		<td class="ct_list_b" width="100">구매상품명</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">회원ID</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">회원명</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">전화번호</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">배송현황</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">정보수정</td>
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="808285" height="1"></td>
-	</tr>
-	
-	<c:set var="i" value="0" />
-<c:forEach var="purchase" items="${list}">
-		<c:set var="i" value="${ i+1 }" />
-	
-	<tr class="ct_list_pop">
-		<td align="center">${purchase.purchaseProd.prodName}
-			<div style="display:none">${purchase.tranNo}</div>
-		</td>
-		<td></td>
-		<td align="center">${purchase.buyer.userId}</td>
-		<td></td>
-		<td align="center">${purchase.receiverName}</td>
-		<td></td>
-		<td align="center">${purchase.receiverPhone}</td>
-		<td></td>
-		<td align="center">현재
-	<c:choose>
-			<c:when test="${purchase.tranCode == '111'}" >	
-						<span style="color:orange"><strong>구매완료</strong></span>
-			</c:when>
-			<c:when test="${purchase.tranCode == '222'}">			
-						<strong>배송완료</strong>			
-			</c:when>
-			<c:otherwise>
-						<span style="color:red"><strong>수령완료</strong></span>
-			</c:otherwise>
-	</c:choose>
-			상태 입니다.		
-		</td>
-		<td></td>		
-		<td align="center">
-			<c:if test="${purchase.tranCode == '222'}">
-				수령하기
-					<div style="display:none">${purchase.tranNo}</div>		
-			</c:if>			
-		</td>
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
-	</tr>	
-</c:forEach>	
-	
-</table>
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
-	<tr>
-		<td align="center">
+<div class="row">
+	    
+		    <div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+		    	</p>
+		    </div>    	
+		</div>
+		
+		<form class="form-inline" name="detailForm">
+		
 			<input type="hidden" id="currentPage" name="currentPage" value=""/>
-			<jsp:include page="../common/pageNavigator.jsp"/>				
-		</td>
-	</tr>
-</table>
+			
+		</form>
 
-</form>
-
-<!--  페이지 Navigator 끝 -->
-
+<br/><br/><br/>
+				
+	<c:set var="i" value="0" />
+			<c:forEach var="purchase" items="${list}">
+				<c:set var="i" value="${ i+1 }" />
+					<div class="column">
+  						<div class="col-sm-6 col-md-4">		
+		    			<div class="thumbnail">
+			     			<c:choose>
+								<c:when test="${!(purchase.purchaseProd.fileName == null || purchase.purchaseProd.fileName == '')}">
+									<img style="width:300px; height:250px;" src = "/images/uploadFiles/${purchase.purchaseProd.fileName}" alt=""/>
+								</c:when>
+								<c:otherwise>
+									<img style="width:300px; height:250px;" src = "/images/no_detail_img.gif" alt=""/>
+								</c:otherwise>
+							</c:choose>
+							
+		      				<div class="caption" align="center">
+		      						<c:choose>					        				
+					        				<c:when test="${purchase.tranCode == '111'}">
+					        					<h5><span style="color:orange"><strong>(구매완료)</strong></span></h5>
+					        				</c:when>
+					        				<c:when test="${purchase.tranCode == '222'}">				
+												<h5><strong>(배송완료)</strong></h5>
+											</c:when>
+											<c:otherwise>				
+												<h5><span style="color:red"><strong>(수령완료)</strong></span></h5>
+											</c:otherwise>
+			        					</c:choose>
+		        			<p></p>		      						       				
+		      							
+		      							<table>
+		      								<tr>
+		      									<td>상	품	명</td>
+		      									<td>&ensp;:&ensp;</td>
+		      									<td>&emsp;${purchase.purchaseProd.prodName}</td>
+		      								</tr>
+		      								<tr>
+		      									<td>가&ensp;&emsp;격</td>
+		      									<td>&ensp;:&ensp;</td>
+		      									<td>&emsp;${purchase.purchaseProd.price}</td>
+		      								</tr>
+		      								<tr>
+		      									<td>제 조 일 </td>
+		      									<td>:</td>
+		      									<td>&emsp;${purchase.purchaseProd.manuDate}</td>
+		      								</tr>
+		      								<tr>
+		      									<td>주 문 일</td>
+		      									<td>:</td>
+		      									<td>&emsp;${purchase.orderDate}</td>
+		      								</tr>
+		      							</table><br/>
+		      							
+							<p>	
+								<button class="btn btn-primary" role="button">										
+											구매상세정보																									
+						        	<div style="display:none">${purchase.tranNo}</div>
+						        </button>&emsp;&emsp;
+						        <c:if test="${purchase.tranCode == '222'}">
+							        <button class="btn btn-primary" role="update">										
+												수령하기																									
+							        	<div style="display:none">${purchase.tranNo}</div>
+							        </button>
+						        </c:if>
+						        						        
+					        </p>						        
+				      </div>
+				    </div>
+			    </div>
+		    </div>					
+		</c:forEach>		
 </div>
-
+<jsp:include page="../common/pageNavigator_new.jsp"/>
 </body>
 </html>

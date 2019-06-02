@@ -18,6 +18,10 @@
 		<result property="divyAddr" column="demailaddr" jdbcType="VARCHAR"/>
 		<result property="purchaseProd.prodNo" column="prod_no" jdbcType="INTEGER"/>
 		<result property="purchaseProd.prodName" column="prod_name" jdbcType="VARCHAR"/>
+		<result property="purchaseProd.price" column="price" jdbcType="INTEGER"/>
+		<result property="purchaseProd.fileName" column="image_file" jdbcType="VARCHAR"/>
+		<result property="purchaseProd.manuDate" column="manufacture_day" jdbcType="VARCHAR"/>
+		<result property="purchaseProd.prodDetail" column="prod_detail" jdbcType="VARCHAR"/>		
 		<result property="buyer.userId" column="buyer_id" jdbcType="VARCHAR"/>
 	</resultMap>
 
@@ -64,7 +68,8 @@
 	 <select id="getPurchaseList" parameterType="map" resultMap="purchaseSelectMap">
 	 	SELECT *
 	 	FROM ( SELECT inner_table.* , ROWNUM AS row_seq 
-	 				FROM		(SELECT product.prod_name, transaction.*
+	 				FROM		(SELECT product.prod_name, product.price, product.manufacture_day, product.image_file, 
+	 								product.prod_detail	,transaction.*
 	 								FROM product, transaction
 	 								<where>
 	 								product.prod_no = transaction.prod_no

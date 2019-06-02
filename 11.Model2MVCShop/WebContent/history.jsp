@@ -9,7 +9,7 @@
 
 </head>
 <body>
-	당신이 열어본 상품을 알고 있다
+	상품조회 목록
 <br>
 <br>
 <%
@@ -30,7 +30,7 @@
 				if (!h[i].equals("null")) {
 %>
 <a href="/product/getProduct?prodNo=<%=h[i]%>&menu=search"
-	target="rightFrame"><%=h[i]%></a>
+	target="_slef"><%=h[i]%></a>
 <br>
 <%
 				}
